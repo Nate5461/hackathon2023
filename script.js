@@ -15,6 +15,26 @@ function attachListeners() {
     }
 }
 
+// Get the text area and speak button elements
+let textArea = document.querySelector('textarea[name="writing"]');
+
+// Add an event listener to the speak button
+function textToSpeech() {
+    console.log("textToSpeech");
+
+    // Get the text from the text area
+    let text = textArea.value;
+
+    console.log(text);
+    // Create a new SpeechSynthesisUtterance object
+    let utterance = new SpeechSynthesisUtterance(text);
+
+    // Speak the utterance
+    window.speechSynthesis.speak(utterance);
+}
+
+
+
 function addFile() {
     let filebar = document.querySelector('.files');
     let newFileButton = document.createElement('button');
@@ -98,3 +118,4 @@ function speechToText() {
         recognition.start();
     }, false);
 };
+
