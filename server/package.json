@@ -1,0 +1,12 @@
+{
+  "name": "hackathon2023",
+  "version": "1.0.0",
+  "description": "This is the starting base project which will be used by teams in the WDS overhaul competition",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

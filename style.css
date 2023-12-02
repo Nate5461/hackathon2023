@@ -144,7 +144,9 @@ body {
 
 .title > .title {
     font-size: 64px;
-    font-family: 'Roboto';
+    font-family: 'geologicabold', sans-serif;
+    font-weight: 600;
+
 }
 
 .title > img {
@@ -179,6 +181,7 @@ body {
     color: white;
     border: none;
     border-radius: 10px;
+    font-family: 'geologicabold', sans-serif;
 }
 
 .signup:hover {
@@ -191,6 +194,7 @@ body {
     color: black;
     border: 2px solid black;
     border-radius: 10px;
+    font-family: 'geologicabold', sans-serif;
 }
 
 .signin:hover {
