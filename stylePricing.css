@@ -216,6 +216,6 @@ body {
     width: 80%;
 }
 
-.feature-box h2,.feature-box h3 .feature-box p {
+.feature-box h2,.feature-box h3, .feature-box p {
     text-align: center; /* This will center the text */
 }
