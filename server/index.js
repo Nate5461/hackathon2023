@@ -30,6 +30,13 @@ app.get('/api/auth/loginInfo', (req, res) => {
     });
 });
 
+app.get('/api/file/fileInfo', (req, res) => {
+    fs.readFile('./userData.json', 'utf8', (err, data) => {
+        res.json(JSON.parse(data));
+    });
+});
+
+//Endpoint for adding a new user
 app.post('/api/auth/loginInfo/', (req, res) => {
     const userData = req.body;
 
@@ -56,6 +63,8 @@ app.post('/api/auth/loginInfo/', (req, res) => {
         });
     });
 });
+
+
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
