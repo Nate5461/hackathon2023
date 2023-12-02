@@ -16,20 +16,21 @@ function attachListeners() {
 }
 
 // Get the text area and speak button elements
-let textArea = document.getElementById("note");
-
+let textArea = document.querySelector('textarea[name="writing"]');
 
 // Add an event listener to the speak button
 function textToSpeech() {
-  // Get the text from the text area
-  let text = textArea.value;
+    console.log("textToSpeech");
 
-  // Create a new SpeechSynthesisUtterance object
-  let utterance = new SpeechSynthesisUtterance(text);
+    // Get the text from the text area
+    let text = textArea.value;
 
+    console.log(text);
+    // Create a new SpeechSynthesisUtterance object
+    let utterance = new SpeechSynthesisUtterance(text);
 
-  // Speak the utterance
-  window.speechSynthesis.speak(utterance);
+    // Speak the utterance
+    window.speechSynthesis.speak(utterance);
 }
 
 
@@ -118,19 +119,3 @@ function speechToText() {
     }, false);
 };
 
-// Get the text area and speak button elements
-let textArea = document.getElementById("writing");
-
-
-// Add an event listener to the speak button
-function textToSpeech() {
-  // Get the text from the text area
-  let text = textArea.value;
-
-  // Create a new SpeechSynthesisUtterance object
-  let utterance = new SpeechSynthesisUtterance(text);
-
-
-  // Speak the utterance
-  window.speechSynthesis.speak(utterance);
-}
