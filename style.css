@@ -313,6 +313,29 @@ body {
     font-size: 20px;
 }
 
+.featuresPricing {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: row;
+    width: 70%;
+   
+}
+
+.feature-boxPricing {
+    flex: 1;
+    border: 1px solid #000;
+    padding: 20px;
+    margin: 0 20px;
+    box-sizing: border-box;
+    background-color: #f9f9f9; /* This will make the boxes visible */
+    height: 500px;
+    width: 80%;
+}
+
+.feature-boxPricing h2,.feature-boxPricing h3, .feature-boxPricing p {
+    text-align: center; /* This will center the text */
+}
 
 
   
