@@ -98,3 +98,20 @@ function speechToText() {
         recognition.start();
     }, false);
 };
+
+// Get the text area and speak button elements
+let textArea = document.getElementById("writing");
+
+
+// Add an event listener to the speak button
+function textToSpeech() {
+  // Get the text from the text area
+  let text = textArea.value;
+
+  // Create a new SpeechSynthesisUtterance object
+  let utterance = new SpeechSynthesisUtterance(text);
+
+
+  // Speak the utterance
+  window.speechSynthesis.speak(utterance);
+}
