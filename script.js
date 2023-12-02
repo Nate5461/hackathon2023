@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", attachListeners);
 document.addEventListener("DOMContentLoaded", checkPage);
-document.addEventListener("DOMContentLoaded", speechToText);
 
 function attachListeners() {
     document.querySelector('.login_form')?.addEventListener('submit', login);
@@ -13,6 +12,8 @@ function attachListeners() {
     if (addButton) {
         addButton.addEventListener('click', addFile);
     }
+
+    document.getElementById('speech-to-text-menu')?.addEventListener('click', speechToText);
 }
 
 // Get the text area and speak button elements
@@ -70,52 +71,61 @@ function logout(event) {
     window.location.href = 'login.html';
 }
 
-function speechToText() {
-    var recognition;
-    var recognizing = false;
-    var startStopButton = document.getElementById('start-stop-btn');
-    var statusDisplay = document.getElementById('recognition-status');
+var recognition; // Global variable to maintain the speech recognition state
+var recognizing = false; // Flag to track if recognition is happening
 
-    if ('webkitSpeechRecognition' in window) {
-        recognition = new webkitSpeechRecognition();
-        recognition.continuous = true;
-        recognition.interimResults = true;
+function speechToText(event) {
+  event.preventDefault(); // Stop the anchor tag from following the href
 
-        recognition.onstart = function() {
-            recognizing = true;
-            startStopButton.textContent = 'Stop';
-            statusDisplay.textContent = 'Status: Active';
-        };
+  if (!recognition) {
+    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.continuous = true;
+    recognition.interimResults = false;
 
-        recognition.onerror = function(event) {
-            console.log('Recognition error: ' + event.error);
-        };
+    recognition.onstart = function() {
+      console.log("Speech recognition started");
+      recognizing = true;
+      toggleStopButton(true); // Show the stop button when recognition starts
+    };
 
-        recognition.onend = function() {
-            recognizing = false;
-            startStopButton.textContent = 'Start';
-            statusDisplay.textContent = 'Status: Inactive';
-        };
+    recognition.onerror = function(event) {
+      console.error('Speech recognition error:', event.error);
+    };
 
-        recognition.onresult = function(event) {
-            var textarea = document.querySelector('.writing');
-            for (var i = event.resultIndex; i < event.results.length; ++i) {
-                if (event.results[i].isFinal) {
-                    textarea.value += event.results[i][0].transcript;
-                }
-            }
-        };
-    } else {
-        startStopButton.style.visibility = 'hidden';
-        statusDisplay.textContent = 'Speech recognition not supported in this browser.';
-    }
+    recognition.onend = function() {
+      console.log("Speech recognition ended");
+      recognizing = false;
+      toggleStopButton(false); // Hide the stop button when recognition ends
+    };
 
-    startStopButton.addEventListener('click', function() {
-        if (recognizing) {
-            recognition.stop();
-            return;
+    recognition.onresult = function(event) {
+      var textarea = document.querySelector('.writing');
+      for (var i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          textarea.value += event.results[i][0].transcript;
         }
-        recognition.start();
-    }, false);
-};
+      }
+    };
+  }
 
+  // Toggle start and stop of recognition
+  if (recognizing) {
+    recognition.stop();
+  } else {
+    recognition.start();
+  }
+}
+
+function toggleStopButton(show) {
+  var stopButton = document.getElementById('stop-speech-btn');
+  stopButton.style.display = show ? 'inline-block' : 'none'; // Show or hide the button
+}
+
+document.getElementById('stop-speech-btn').addEventListener('click', function() {
+  if (recognition) {
+    recognition.stop();
+    recognition = null; // Clear the recognition instance
+  }
+  recognizing = false;
+  toggleStopButton(false); // Hide the button
+});
