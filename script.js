@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", attachListeners);
 document.addEventListener("DOMContentLoaded", checkPage);
+document.addEventListener("DOMContentLoaded", speechToText);
 
 function attachListeners() {
     document.querySelector('.login_form')?.addEventListener('submit', login);
@@ -48,3 +49,52 @@ function logout(event) {
     localStorage.removeItem('password');
     window.location.href = 'login.html';
 }
+
+function speechToText() {
+    var recognition;
+    var recognizing = false;
+    var startStopButton = document.getElementById('start-stop-btn');
+    var statusDisplay = document.getElementById('recognition-status');
+
+    if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onstart = function() {
+            recognizing = true;
+            startStopButton.textContent = 'Stop';
+            statusDisplay.textContent = 'Status: Active';
+        };
+
+        recognition.onerror = function(event) {
+            console.log('Recognition error: ' + event.error);
+        };
+
+        recognition.onend = function() {
+            recognizing = false;
+            startStopButton.textContent = 'Start';
+            statusDisplay.textContent = 'Status: Inactive';
+        };
+
+        recognition.onresult = function(event) {
+            var textarea = document.querySelector('.writing');
+            for (var i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    textarea.value += event.results[i][0].transcript;
+                }
+            }
+        };
+    } else {
+        startStopButton.style.visibility = 'hidden';
+        statusDisplay.textContent = 'Speech recognition not supported in this browser.';
+    }
+
+    startStopButton.addEventListener('click', function() {
+        if (recognizing) {
+            recognition.stop();
+            return;
+        }
+        recognition.start();
+    }, false);
+};
