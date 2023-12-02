@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "espress": "^0.0.0",
+    "nodemon": "^3.0.2"
+  }
 }
