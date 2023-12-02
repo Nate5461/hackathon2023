@@ -6,6 +6,11 @@ body {
     --btn-secondary: transparent;
 }
 
+@font-face {
+    font-family: 'geologicabold';
+    src: url('assets\Geologica_Auto-Bold.ttf');
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -22,7 +27,24 @@ body {
     width: 60%;
     align-items: center;
     gap: 24px;
+    font-size: 30px;
+    
 }
+
+.pages a {
+    text-decoration: none;
+    color: black;
+    font-family: 'geologicabold', sans-serif;
+    font-weight: bolder;
+    position: relative;
+    display: inline-block;
+}
+
+.pages a:hover {
+    color: var(--btn-primary);
+}
+
+
 
 .general {
     width: 40%;
@@ -30,7 +52,52 @@ body {
     justify-content: flex-end;
     align-items: center;
     gap: 24px;
+    font-size: 30px;
 }
+
+.general a {
+    text-decoration: none;
+    color: black;
+    font-family: 'geologicabold', sans-serif;
+    font-weight: bolder;
+    position: relative;
+    display: inline-block;
+}
+
+.general a:hover {
+    color: var(--btn-primary);
+}
+
+.pages > a:not(.btn)::after, .general > a:not(.btn)::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--btn-primary);
+    transition: width .3s;
+}
+
+.pages > a:not(.btn):hover::after, .general > a:not(.btn):hover::after {
+    width: 100%;
+}
+
+
+.btn {
+    text-decoration: none;
+    background-color: var(--btn-primary);
+    padding: 4px 12px;
+    color: white !important;
+    border-radius: 6px;
+}
+
+.btn:hover {
+    background-color: var(--btn-primary-dark);
+    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.24);
+}
+
+
 
 .head {
     margin: 128px 0 0 48px;
@@ -84,12 +151,24 @@ body {
     background-color: var(--btn-primary-dark);
     color: white;
     border: none;
+    border-radius: 10px;
+}
+
+.signup:hover {
+    background-color: var(--btn-primary);
+    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.24);
 }
 
 .signin {
     background-color: var(--btn-secondary);
     color: black;
     border: 2px solid black;
+    border-radius: 10px;
+}
+
+.signin:hover {
+    background-color: var(--btn-primary);
+    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.24);
 }
 
 .splash {
@@ -105,13 +184,6 @@ body {
     bottom: 48px;
     right: 124px;
     height: calc(90vh - 128px);
-}
-
-.btn {
-    text-decoration: none;
-    background-color: var(--btn-primary);
-    padding: 4px 12px;
-    color: white !important;
 }
 
 .copy {
