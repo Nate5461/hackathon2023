@@ -8,7 +8,7 @@ body {
 
 @font-face {
     font-family: 'geologicabold';
-    src: url('assets\Geologica_Auto-Bold.ttf');
+    src: url('../assets/Geologica_Auto-Light.ttf');
 }
 
 .navbar {
