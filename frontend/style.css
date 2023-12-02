@@ -322,7 +322,7 @@ body {
     justify-content: center;
     align-items: stretch;
     flex-direction: row;
-    width: 70%;
+    
    
 }
 
@@ -330,15 +330,42 @@ body {
     flex: 1;
     border: 1px solid #000;
     padding: 20px;
-    margin: 0 20px;
+    margin: 40px 80px;
     box-sizing: border-box;
     background-color: #f9f9f9; /* This will make the boxes visible */
     height: 500px;
     width: 80%;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-.feature-boxPricing h2,.feature-boxPricing h3, .feature-boxPricing p {
+.feature-boxPricing:hover {
+    transform: scale(1.05); /* This will make the box larger */
+    background-color: rgb(47, 48, 120)49, 101; /* This will highlight the box */
+}
+
+.feature-boxPricing h2, .feature-boxPricing h3{
     text-align: center; /* This will center the text */
+}
+
+.feature-boxPricing p{
+    text-align: center; 
+    margin: 50px auto;
+}
+
+.img-text {
+    display: flex;
+    align-items: center; /* This will vertically center the image and text */
+    gap: 10px; /* This will add space between the image and text */
+}
+
+.feature-boxPricing img {
+    /* Other styles... */
+    margin-bottom: 0; /* Remove the bottom margin */
+}
+.feature-boxPricing img {
+    /* Other styles... */
+    margin-bottom: 0px; /* This will add space below the image */
 }
 
 
