@@ -1,4 +1,17 @@
-{
+[
+  {
     "username": "admin",
+    "email": "admin@localhost",
     "password": "admin"
-}
+  },
+  {
+    "username": "abc",
+    "email": "user1@gamil.com",
+    "password": "abc"
+  },
+  {
+    "username": "john",
+    "email": "jonny@localhost",
+    "password": "abc"
+  }
+]

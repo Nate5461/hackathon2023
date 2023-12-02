@@ -24,9 +24,36 @@ app.use((req, res, next) => {
 
 
 // Send JSON file for the first route
-app.get('/api/loginInfo', (req, res) => {
+app.get('/api/auth/loginInfo', (req, res) => {
     fs.readFile('./userData.json', 'utf8', (err, data) => {
         res.json(JSON.parse(data));
+    });
+});
+
+app.post('/api/auth/loginInfo/', (req, res) => {
+    const userData = req.body;
+
+    fs.readFile('./userData.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        let existingData = JSON.parse(data);
+
+        // Assuming your JSON file initially contains an array
+        existingData.push(userData);
+
+        fs.writeFile('./userData.json', JSON.stringify(existingData, null, 2), (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: 'Internal Server Error' });
+                return;
+            }
+
+            res.json({ success: true });
+        });
     });
 });
 
