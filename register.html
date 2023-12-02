@@ -7,6 +7,8 @@
     <title>InkLink</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="assets/link.png" type="image/x-icon">
+    <script src="user.js"></script>
+
   </head>
   <body>
     <div class="navbar">
@@ -25,7 +27,12 @@
         </div>
       </div>
     <div class="main">
-        Register
+      <form class="register_form">
+        <input type="username" placeholder=" Create Username..." id="username">
+        <input type="password" placeholder="Create Password..." id ="password1">
+        <input type="password" placeholder="Verify Password..." id = "password2">
+        <input type="submit" value="Register Account" id="submit">
+    </form>
     </div>
   </body>
 </html>
