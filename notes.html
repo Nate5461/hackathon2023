@@ -14,17 +14,18 @@
           <img src="assets/logo.png" alt="logo">
           <a href="index.html">Home</a>
           <a href="pricing.html">Pricing</a>
-          <a href="teams.html">For Teams</a>
-          <a href="individuals.html">For Individuals</a>
+          <a href="teams.html">Teams</a>
+          <a href="individuals.html">Individuals</a>
           <a href="mission.html">Mission</a>
           <div class="dropdown">
             <a href="#" class="dropbtn">Functions</a>
             <div class="dropdown-content">
                 <a href="#" onclick="textToSpeech()">Text to Speech</a>
-                <a href="function2.html">Function 2</a>
+                <a href="#" id="speech-to-text-menu">Speech to Text</a>
                 <a href="function3.html">Function 3</a>
             </div>
         </div>
+        <button id="stop-speech-btn" style="display:none; background-color:red;width:20px; height:20px;"></button>
         </div>
 
         <div class="general">
@@ -45,8 +46,6 @@
         </div>
         <div class="notes">
           <textarea name="writing" cols="30" rows="10" class="writing"></textarea>
-          <button id="start-stop-btn">Start/Stop Speech Recognition</button>
-          <p id="recognition-status">Status: Inactive</p>
       </div>
       
     </div>
