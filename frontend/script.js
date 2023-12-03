@@ -15,7 +15,26 @@ function attachListeners() {
 
     document.getElementById('speech-to-text-menu')?.addEventListener('click', speechToText);
 }
+if (window.location.href.endsWith('notes.html')) {
+  fetch('/api/file/fileInfo')
+      .then(response => response.json())
+      .then(data => {
+          const sidebar = document.getElementById('sidebarID');
+          const textarea = document.getElementById('writingID');
 
+          data.notes.forEach(note => {
+              const noteElement = document.createElement('div');
+              noteElement.textContent = note.title;
+
+              noteElement.addEventListener('click', () => {
+                  textarea.value = note.content;
+              });
+
+              sidebar.appendChild(noteElement);
+          });
+      })
+      .catch(error => console.error('Error:', error));
+}
 // Get the text area and speak button elements
 let textArea = document.querySelector('textarea[name="writing"]');
 
@@ -63,7 +82,6 @@ function login(event) {
 
     window.location = 'notes.html';
 }
-
 
 
 function logout(event) {
