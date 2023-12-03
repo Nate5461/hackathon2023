@@ -105,8 +105,11 @@ function logout(event) {
   window.location.href = 'login.html';
 }
 
+
 var recognition; // Global variable to maintain the speech recognition state
 var recognizing = false; // Flag to track if recognition is happening
+
+document.getElementById('speech-to-text-menu').addEventListener('click', speechToText);
 
 function speechToText(event) {
   console.log("speechToText");
@@ -143,32 +146,7 @@ function speechToText(event) {
     };
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('saveButton').addEventListener('click', saveNote);
-  });
-  
-  function saveNote() {
-    console.log("saveNote");
-  }
-    /*
-    const text = document.getElementById('writingID').value;
-    const data = JSON.stringify({ note: text });
-
-    fetch('/api/notes', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: data,
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Note saved:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-    */
+ 
 
 
 document.addEventListener('DOMContentLoaded', function() {
