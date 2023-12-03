@@ -326,23 +326,28 @@ body {
    
 }
 
+/* Existing styles for feature-boxPricing */
 .feature-boxPricing {
     flex: 1;
     border: 1px solid #000;
     padding: 20px;
     margin: 40px 80px;
     box-sizing: border-box;
-    background-color: #f9f9f9; /* This will make the boxes visible */
+    background-color: #f9f9f9; /* Default background color */
     height: 500px;
     width: 80%;
     border-radius: 10px;
     transition: all 0.3s ease;
+    /* Add your other styles... */
 }
 
+/* Add hover effect */
 .feature-boxPricing:hover {
-    transform: scale(1.05); /* This will make the box larger */
-    background-color: rgb(47, 48, 120)49, 101; /* This will highlight the box */
+    background-color: var(--btn-primary); /* Background color on hover */
+    transform: scale(1.05); /* Keep your scale transformation */
+    /* You may adjust the background-color if var(--btn-primary) is not the blue you want */
 }
+
 
 .feature-boxPricing h2, .feature-boxPricing h3{
     text-align: center; /* This will center the text */
