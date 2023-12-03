@@ -36,6 +36,32 @@ app.get('/api/file/fileInfo', (req, res) => {
     });
 });
 
+const jwt = require('jsonwebtoken');
+const SECRET_KEY = 'key'; // Replace with your actual secret key
+
+app.post('/api/auth/signin', (req, res) => {
+    const { username, password } = req.body;
+
+    fs.readFile('./userData.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        const users = JSON.parse(data);
+        const user = users.find(user => user.username === username && user.password === password);
+
+        if (!user) {
+            res.status(401).json({ error: 'Invalid username or password' });
+            return;
+        }
+
+        const token = jwt.sign({ username: user.username }, SECRET_KEY);
+        res.json({ token });
+    });
+});
+
 //Post request for adding a new file
 app.post('/api/file/fileInfo', (req, res) => {
     const fileData = req.body; // req.body is already an object
@@ -62,6 +88,40 @@ app.post('/api/file/fileInfo', (req, res) => {
                 return;
             }
     
+            res.json({ success: true });
+        });
+    });
+});
+
+app.put('/api/file/fileInfo', (req, res) => {
+    console.log(req.body);
+    const { title, content } = req.body; // changed 'text' to 'content'
+
+    fs.readFile('./fileData.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        let existingData = JSON.parse(data);
+
+        let note = existingData.notes.find(note => note.title === title);
+        console.log(note);
+        if (!note) {
+            res.status(404).json({ error: 'Note not found' });
+            return;
+        }
+
+        note.content = content; // changed 'text' to 'content'
+        console.log(existingData);
+        fs.writeFile('./fileData.json', JSON.stringify(existingData, null, 2), (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: 'Internal Server Error' });
+                return;
+            }
+
             res.json({ success: true });
         });
     });

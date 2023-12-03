@@ -1,41 +1,37 @@
-document.addEventListener("DOMContentLoaded", attachListeners);
 document.addEventListener("DOMContentLoaded", checkPage);
 
-function attachListeners() {
-    document.querySelector('.login_form')?.addEventListener('submit', login);
-    let logoutButton = document.querySelector('.logout');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', logout);
-    }
 
-    let addButton = document.querySelector('.add_file');
-    if (addButton) {
-        addButton.addEventListener('click', addFile);
-    }
+document.addEventListener("DOMContentLoaded", function() {
+  if (window.location.href.endsWith('notes.html')) {
+      fetch('/api/file/fileInfo')
+          .then(response => response.json())
+          .then(data => {
+              const sidebar = document.getElementById('sidebarID');
+              const textarea = document.getElementById('writingID');
 
-    document.getElementById('speech-to-text-menu')?.addEventListener('click', speechToText);
-}
-if (window.location.href.endsWith('notes.html')) {
-  fetch('/api/file/fileInfo')
-      .then(response => response.json())
-      .then(data => {
-          const sidebar = document.getElementById('sidebarID');
-          const textarea = document.getElementById('writingID');
+              data.notes.forEach(note => {
+                  const noteElement = document.createElement('div');
+                  noteElement.textContent = note.title;
+                  noteElement.classList.add('note');
 
-          data.notes.forEach(note => {
-              const noteElement = document.createElement('div');
-              noteElement.textContent = note.title;
-              noteElement.classList.add('note');
+                  noteElement.addEventListener('click', () => {
+                      // remove the selected class from all notes
+                      const notes = sidebar.querySelectorAll('.note');
+                      notes.forEach(note => {
+                          note.classList.remove('selected');
+                      });
 
-              noteElement.addEventListener('click', () => {
-                  textarea.value = note.content;
+                      // add the selected class to the clicked note
+                      noteElement.classList.add('selected');
+
+                      textarea.value = note.content;
+                  });
+
+                  sidebar.appendChild(noteElement);
               });
-
-              sidebar.appendChild(noteElement);
           });
-      })
-      .catch(error => console.error('Error:', error));
-}
+  }
+});
 // Get the text area and speak button elements
 let textArea = document.querySelector('textarea[name="writing"]');
 
@@ -54,6 +50,37 @@ function textToSpeech() {
     window.speechSynthesis.speak(utterance);
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('signinButton').addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent the form from being submitted normally
+
+    const username = document.getElementById('usernameInput').value;
+    const password = document.getElementById('passwordInput').value;
+
+    fetch('/api/auth/signin', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Invalid username or password');
+        }
+        return response.json();
+    })
+    .then(data => {
+        localStorage.setItem('token', data.token);
+        window.location.href = 'notes.html'; // Redirect to 'notes.html'
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Invalid username or password. Please try again.'); // Show an error message
+    });
+  });
+});
+
 
 
 function addFile() {
@@ -65,37 +92,24 @@ function addFile() {
 }
 
 function checkPage() {
-    let username = localStorage.getItem('username');
-    if (window.location.href.includes('login.html') && username)
-        window.location = 'notes.html';
-    if (window.location.href.includes('notes.html') && !username)
-        window.location = 'login.html';
+  let token = localStorage.getItem('token');
+  if (window.location.href.includes('login.html') && token)
+      window.location = 'notes.html';
+  if (window.location.href.includes('notes.html') && !token)
+      window.location = 'login.html';
 }
-
-function login(event) {
-    event.preventDefault();
-
-    let username = document.querySelector('.login_form input[type="username"]').value;
-    let password = document.querySelector('.login_form input[type="password"]').value;
-
-    localStorage.setItem('username', username);
-    localStorage.setItem('password', password);
-
-    window.location = 'notes.html';
-}
-
 
 function logout(event) {
-    event.preventDefault();
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
-    window.location.href = 'login.html';
+  event.preventDefault();
+  localStorage.removeItem('token');
+  window.location.href = 'login.html';
 }
 
 var recognition; // Global variable to maintain the speech recognition state
 var recognizing = false; // Flag to track if recognition is happening
 
 function speechToText(event) {
+  console.log("speechToText");
   event.preventDefault(); // Stop the anchor tag from following the href
 
   if (!recognition) {
@@ -128,6 +142,56 @@ function speechToText(event) {
       }
     };
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('saveButton').addEventListener('click', saveNote);
+  });
+  
+  function saveNote() {
+    console.log("saveNote");
+  }
+    /*
+    const text = document.getElementById('writingID').value;
+    const data = JSON.stringify({ note: text });
+
+    fetch('/api/notes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: data,
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Note saved:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    */
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const filesDiv = document.getElementById('sidebarID').querySelector('.files');
+
+  filesDiv.addEventListener('click', function(event) {
+      const clickedElement = event.target;
+
+      // check if the clicked element is a note
+      if (clickedElement.classList.contains('note')) { // replace 'note' with the actual class of the notes
+          // remove the selected class from all notes
+          const notes = filesDiv.querySelectorAll('.note'); // replace 'note' with the actual class of the notes
+          notes.forEach(note => {
+              note.classList.remove('selected');
+          });
+
+          // add the selected class to the clicked note
+          clickedElement.classList.add('selected');
+      }
+  });
+});
+
+
 
   // Toggle start and stop of recognition
   if (recognizing) {
