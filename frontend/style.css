@@ -11,6 +11,11 @@ body {
     src: url('../assets/Geologica_Auto-Light.ttf');
 }
 
+@font-face {
+    font-family: 'geologicabolder';
+    src: url('../assets/Geologica_Auto-Medium.ttf');
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -277,6 +282,10 @@ body {
     display: flex; /* Align the span and button horizontally */
     justify-content: space-between; /* Put space between the span and button */
     margin-bottom: 20px; /* Space below the top section */
+    font-family: geologicabolder, sans-serif; /* Match the font with the rest of your design */
+    font-weight: 300;
+    font-size: x-large;
+    margin-left: 10px;
 }
 
 .sidebar .add_file {
