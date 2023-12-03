@@ -25,6 +25,7 @@ if (window.location.href.endsWith('notes.html')) {
           data.notes.forEach(note => {
               const noteElement = document.createElement('div');
               noteElement.textContent = note.title;
+              noteElement.classList.add('note');
 
               noteElement.addEventListener('click', () => {
                   textarea.value = note.content;

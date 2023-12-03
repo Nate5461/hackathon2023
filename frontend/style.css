@@ -266,20 +266,48 @@ body {
 }
 
 .sidebar {
-    height: calc(100% - 48px);
-    width: 20%;
-    border-right: 1px solid var(--border);
-    padding: 24px;
+    width: 200px; /* Adjust as needed */
+    background-color: #f0f0f0; /* Adjust as needed */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Space inside the sidebar */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for a "lifted" effect */
 }
 
-.sidebar > .top {
-    font-size: 16px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    font-family: 'Roboto';
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 16px;
+.sidebar .top {
+    display: flex; /* Align the span and button horizontally */
+    justify-content: space-between; /* Put space between the span and button */
+    margin-bottom: 20px; /* Space below the top section */
+}
+
+.sidebar .add_file {
+    background-color: #007BFF; /* Adjust as needed */
+    color: white; /* Adjust as needed */
+    border: none; /* Remove default button border */
+    border-radius: 50%; /* Make the button round */
+    width: 30px; /* Adjust as needed */
+    height: 30px; /* Adjust as needed */
+    cursor: pointer; /* Change cursor to a hand when hovering over the button */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.sidebar .add_file:hover {
+    background-color: #0056b3; /* Darken the button color when hovering */
+}
+
+.note {
+    background-color: #7D7DF7; /* Adjust as needed */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px; /* Space inside the note */
+    margin-bottom: 10px; /* Space below each note */
+    cursor: pointer; /* Change cursor to a hand when hovering over the note */
+    transition: background-color 0.3s; /* Transition for hover effect */
+    font-family: 'geologicabold', sans-serif; /* Match the font with the rest of your design */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; /* Optional: Add a shadow for a "lifted" effect */
+}
+
+.note:hover {
+    background-color: #0056b3; /* Darken the note color when hovering */
+    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.24); /* Darken the shadow when hovering */
 }
 
 .notes {
