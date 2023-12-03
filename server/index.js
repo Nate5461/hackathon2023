@@ -129,7 +129,7 @@ app.put('/api/file/fileInfo', (req, res) => {
 
 
 //Endpoint for adding a new user
-app.post('/api/auth/loginInfo/', (req, res) => {
+app.post('/api/auth/register', (req, res) => {
     const userData = req.body;
 
     fs.readFile('./userData.json', 'utf8', (err, data) => {

@@ -13,5 +13,10 @@
     "username": "john",
     "email": "jonny@localhost",
     "password": "abc"
+  },
+  {
+    "username": "b",
+    "email": "b@w.ca",
+    "password": "b"
   }
 ]
